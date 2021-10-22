@@ -1,26 +1,56 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <main>
+    <div class="container" v-for="(section, index) in 3" :key="index">
+      <Container :index="index" />
+    </div>
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapState, mapMutations } from "vuex";
+import { gsap } from "gsap";
+import Container from "./components/Container.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Container,
+  },
+  computed: {
+    ...mapState(["options"]),
+  },
+  mounted() {
+    this.reveal(gsap);
+  },
+  methods: {
+    ...mapMutations(["reveal"]),
+  },
+};
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  &:nth-child(1) {
+    background: #bcc4c0;
+  }
+  &:nth-child(2) {
+    background: #decdc6;
+  }
+  &:nth-child(3) {
+    background: #ded2b8;
+  }
 }
 </style>
